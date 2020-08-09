@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/BgPrimary"
+    android:orientation="vertical"
+    tools:context="Controller.ResultsActivity">
+
+    <LinearLayout
+        android:layout_width="340dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/imgbtback"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:scaleY="0.6"
+            android:scaleX="0.6"
+            android:background="@android:color/transparent"
+            android:src="@drawable/back_ic"/>
+
+
+
+
+
+    </LinearLayout>
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvmain"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:layout_width="340dp"
+            android:layout_height="match_parent"
+            android:background="@color/BgPrimary"
+
+            android:clipToPadding="false"
+
+
+            />
+
+
+
+        <LinearLayout
+            android:id="@+id/lnlayouterror"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="200dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txerror"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/roboto_bold"
+                android:text="An error has occured!"
+                android:textColor="@android:color/black"
+                android:textSize="22dp" />
+
+
+            <ImageView
+                android:layout_width="340dp"
+                android:layout_height="240dp"
+                android:src="@drawable/nodata_illustration"
+                android:scaleY="1.5"
+                android:scaleX="1.5" />
+
+        </LinearLayout>
+
+
+
+
+
+
+</LinearLayout>
