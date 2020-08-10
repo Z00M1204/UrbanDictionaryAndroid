@@ -62,7 +62,7 @@ public class ApiClass {
                         mainclient.newCall(request).enqueue(new Callback() {
                             @Override
                             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                                Log.e("myTag", "Failure");
+                                extraLogic.setErrormsg("Sorry! Techincal issues have arisen,", txerror, lnlayouterror, rvmain);
 
                             }
 
