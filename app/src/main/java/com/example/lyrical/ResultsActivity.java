@@ -1,29 +1,22 @@
-package Controller;
+package com.example.lyrical;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-
-import com.example.lyrical.R;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import Model.ApiClass;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class ResultsActivity extends AppCompatActivity {
 
-    public RecyclerView rvmain;
+    RecyclerView rvmain;
     ImageButton imgbtback;
-
-
+    LinearLayout lnlayouterror;
+    TextView txerror;
 
 
     @Override
@@ -33,14 +26,18 @@ public class ResultsActivity extends AppCompatActivity {
 
         rvmain = findViewById(R.id.rvmain);
         imgbtback = findViewById(R.id.imgbtback);
+        lnlayouterror = findViewById(R.id.lnlayouterror);
+        txerror = findViewById(R.id.txerror);
 
-        //getting the searchquery passed from the MainActivity class
+
+
+        //Getting the searchquery passed from the MainActivity class
         Intent mainintent = getIntent();
         String searchQuery = mainintent.getStringExtra("searchQuery");
 
         //Defining my API class, and calling my API call that gets the definitions from the API
         ApiClass apiClass = new ApiClass();
-        apiClass.setListFromApiCall(searchQuery, rvmain, this);
+        apiClass.setListFromApiCall(searchQuery, rvmain, this, txerror, lnlayouterror);
 
         //setting the layoutmanager of the recyclerview
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -60,9 +57,6 @@ public class ResultsActivity extends AppCompatActivity {
 
     }
 
-    public void showErrorIllustration() {
-
-    }
 
 
 

@@ -1,9 +1,11 @@
-package Model;
+package com.example.lyrical;
 
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,9 +18,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import Controller.ItemClass;
-import Controller.RecyclerviewAdapterClass;
-import Controller.ResultsActivity;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -31,11 +30,13 @@ public class ApiClass {
 
     ResultsActivity resultsActivity = new ResultsActivity();
 
+    ExtraLogic extraLogic = new ExtraLogic();
+
     public final List<ItemClass> mainlist = new ArrayList<>();
 
 
 
-    public void setListFromApiCall(String searchQuery, final RecyclerView rvmain, final Context context) {
+    public void setListFromApiCall(String searchQuery, final RecyclerView rvmain, final Context context, final TextView txerror, final LinearLayout lnlayouterror) {
 
         //creating a new stringbuilder and appending the url and then the search query so the API returns the list of definitions of the given search query
         final StringBuilder mainstrbuilder = new StringBuilder();
@@ -68,14 +69,13 @@ public class ApiClass {
                             @Override
                             public void onResponse(@NotNull Call call, @NotNull final Response response) throws IOException {
 
+                                //calling the error method, in the case that the API response failing
                                 if (!response.isSuccessful()) {
-                                    Log.e("myTag", "Failure");
+                                    extraLogic.setErrormsg("Sorry! Techincal issues have arisen,", txerror, lnlayouterror, rvmain);
                                 }
 
                                 if (response.isSuccessful()) {
                                     try {
-
-
 
                                         //getting the JSON object that holds the JSON array which i need
                                         JSONObject startobject = new JSONObject(response.body().string());
@@ -97,6 +97,11 @@ public class ApiClass {
 
                                             Log.e("tag", definition);
 
+
+                                        }
+
+                                        if (mainarray.length() == 0) {
+                                            extraLogic.setErrormsg("Sorry! No definitions found for that word.", txerror, lnlayouterror, rvmain);
 
                                         }
 
@@ -129,9 +134,8 @@ public class ApiClass {
 
             });
 
+            //Starting the thread used for the API call
             thread.start();
-
-
 
         } catch (Exception f ) {
             f.printStackTrace();
